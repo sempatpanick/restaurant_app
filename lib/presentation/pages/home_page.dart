@@ -16,23 +16,34 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
-  late AnimationController controller;
+  late AnimationController animateListController;
+  late Animation<double> animation;
   final bannerController = PageController(viewportFraction: 0.8, keepPage: true);
 
   @override
   void initState() {
-    controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
+    animateListController =
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
 
+    animation = Tween<double>(begin: 0.0, end: 1.0).animate(animateListController);
     super.initState();
   }
 
   @override
   void didChangeDependencies() {
     Future.delayed(const Duration(milliseconds: 100), () {
-      controller.forward();
+      animateListController.forward();
     });
 
     super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    animateListController.dispose();
+    bannerController.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -164,7 +175,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                       colorText: colorText,
                       onTap: () async {
                         if (data.setCategoryFoodIndex(index)) {
-                          controller.reverse().whenComplete(() => controller.forward());
+                          animateListController
+                              .reverse()
+                              .whenComplete(() => animateListController.forward());
                         }
                       },
                     );
@@ -176,11 +189,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               height: 30,
             ),
             Consumer<MenuNotifier>(builder: (context, data, _) {
-              return SlideTransition(
-                position: Tween(
-                  begin: const Offset(.2, .05),
-                  end: const Offset(0, 0),
-                ).animate(controller),
+              return FadeTransition(
+                opacity: animation,
                 child: ListView.separated(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
