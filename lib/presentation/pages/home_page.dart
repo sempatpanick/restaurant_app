@@ -1,10 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/common/constants.dart';
-import 'package:restaurant_app/presentation/provider/utils_notifier.dart';
+import 'package:restaurant_app/presentation/provider/menu_notifier.dart';
 import 'package:restaurant_app/presentation/widgets/item_category_widget.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../domain/entities/menu.dart';
 import '../widgets/item_menu_list_view_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,74 +17,22 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   late AnimationController controller;
-  final pageController = PageController(viewportFraction: 0.8, keepPage: true);
-  var menus = <Menu>[];
-
-  final List<String> _category = [
-    "Recommended",
-    "Popular",
-    "Sushi",
-    "Ramen",
-    "Donburi",
-    "Tempura",
-    "Drink",
-  ];
-
-  final List<Menu> _menuRecommended = [
-    const Menu(id: 1, name: 'Takoyaki', status: 1, price: 10000, image: ''),
-    const Menu(id: 2, name: 'Todoroki', status: 1, price: 15000, image: ''),
-    const Menu(id: 3, name: 'Ebi Ramen', status: 0, price: 22000, image: ''),
-    const Menu(id: 4, name: 'Edamame', status: 1, price: 10000, image: ''),
-    const Menu(id: 5, name: 'Dory', status: 1, price: 25000, image: ''),
-    const Menu(id: 6, name: 'Sashimi', status: 1, price: 25000, image: ''),
-    const Menu(id: 7, name: 'Korya', status: 1, price: 25000, image: ''),
-  ];
-
-  final List<Menu> _menuPopular = [
-    const Menu(id: 1, name: 'Takoyaki', status: 1, price: 10000, image: ''),
-    const Menu(id: 2, name: 'Todoroki', status: 1, price: 15000, image: ''),
-    const Menu(id: 3, name: 'Ebi Ramen', status: 0, price: 22000, image: ''),
-    const Menu(id: 4, name: 'Edamame', status: 1, price: 10000, image: ''),
-    const Menu(id: 5, name: 'Dory', status: 1, price: 25000, image: ''),
-    const Menu(id: 6, name: 'Sashimi', status: 1, price: 25000, image: ''),
-  ];
-
-  final List<Menu> _menuSushi = [
-    const Menu(id: 1, name: 'Takoyaki', status: 1, price: 10000, image: ''),
-    const Menu(id: 2, name: 'Todoroki', status: 1, price: 15000, image: ''),
-    const Menu(id: 3, name: 'Ebi Ramen', status: 0, price: 22000, image: ''),
-    const Menu(id: 4, name: 'Edamame', status: 1, price: 10000, image: ''),
-    const Menu(id: 5, name: 'Dory', status: 1, price: 25000, image: ''),
-  ];
-
-  final List<Menu> _menuRamen = [
-    const Menu(id: 1, name: 'Takoyaki', status: 1, price: 10000, image: ''),
-    const Menu(id: 2, name: 'Todoroki', status: 1, price: 15000, image: ''),
-    const Menu(id: 3, name: 'Ebi Ramen', status: 0, price: 22000, image: ''),
-    const Menu(id: 4, name: 'Edamame', status: 1, price: 10000, image: ''),
-  ];
-
-  final List<Menu> _menuDonburi = [
-    const Menu(id: 1, name: 'Takoyaki', status: 1, price: 10000, image: ''),
-    const Menu(id: 2, name: 'Todoroki', status: 1, price: 15000, image: ''),
-    const Menu(id: 3, name: 'Ebi Ramen', status: 0, price: 22000, image: ''),
-  ];
-
-  final List<Menu> _menuTempura = [
-    const Menu(id: 1, name: 'Takoyaki', status: 1, price: 10000, image: ''),
-    const Menu(id: 2, name: 'Todoroki', status: 1, price: 15000, image: ''),
-  ];
-
-  final List<Menu> _menuDrink = [
-    const Menu(id: 1, name: 'Takoyaki', status: 1, price: 10000, image: ''),
-  ];
+  final bannerController = PageController(viewportFraction: 0.8, keepPage: true);
 
   @override
   void initState() {
     controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
-    controller.forward();
 
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    Future.delayed(const Duration(milliseconds: 100), () {
+      controller.forward();
+    });
+
+    super.didChangeDependencies();
   }
 
   @override
@@ -128,35 +77,95 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
-              height: 70,
+              height: 40,
             ),
-            Consumer<UtilsNotifier>(builder: (context, data, _) {
+            Consumer<MenuNotifier>(builder: (context, data, _) {
+              return Column(
+                children: [
+                  SizedBox(
+                    height: 200,
+                    child: PageView.builder(
+                      controller: bannerController,
+                      onPageChanged: (index) => data.setBannerActiveIndex(index),
+                      itemCount: 6,
+                      itemBuilder: (_, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            clipBehavior: Clip.hardEdge,
+                            child: CachedNetworkImage(
+                              imageUrl: "https://dummyimage.com/500x250/FFC532/fff.jpg",
+                              fit: BoxFit.cover,
+                              progressIndicatorBuilder: (context, url, downloadProgress) => Center(
+                                child: SizedBox(
+                                  width: 60,
+                                  height: 60,
+                                  child: CircularProgressIndicator(
+                                    value: downloadProgress.progress,
+                                    color: primaryColor,
+                                  ),
+                                ),
+                              ),
+                              errorWidget: (context, url, error) => const Icon(Icons.error),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  SmoothPageIndicator(
+                    controller: bannerController,
+                    count: 6,
+                    effect: const WormEffect(
+                      dotWidth: 10,
+                      dotHeight: 10,
+                      activeDotColor: primaryColor,
+                      dotColor: colorGreyDark,
+                    ),
+                    onDotClicked: (index) => bannerController
+                        .animateToPage(
+                          index,
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.easeIn,
+                        )
+                        .whenComplete(() => data.setBannerActiveIndex(index)),
+                  ),
+                ],
+              );
+            }),
+            const SizedBox(
+              height: 40,
+            ),
+            Consumer<MenuNotifier>(builder: (context, data, _) {
               int indexCategory = data.categoryFoodIndex;
+              data.getMenu(indexCategory);
 
               return SizedBox(
                 height: 40,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
-                  padding: const EdgeInsets.only(left: 16.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   separatorBuilder: (context, index) => const SizedBox(
-                    width: 20,
+                    width: 10,
                   ),
-                  itemCount: _category.length,
+                  itemCount: data.category.length,
                   itemBuilder: (context, index) {
                     Color colorBackground = indexCategory == index ? primaryColor : colorWhite;
                     Color colorText = indexCategory == index ? colorWhite : colorBlack;
 
                     return ItemCategoryWidget(
-                      name: _category[index],
+                      name: data.category[index],
                       colorBackground: colorBackground,
                       colorText: colorText,
-                      onTap: () {
-                        controller.reverse();
-                        Future.delayed(const Duration(milliseconds: 300), () {
-                          controller.forward();
-                        });
-                        data.setCategoryFoodIndex(index);
+                      onTap: () async {
+                        if (data.setCategoryFoodIndex(index)) {
+                          controller.reverse().whenComplete(() => controller.forward());
+                        }
                       },
                     );
                   },
@@ -166,27 +175,10 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             const SizedBox(
               height: 30,
             ),
-            Consumer<UtilsNotifier>(builder: (context, data, _) {
-              menus.clear();
-              if (data.categoryFoodIndex == 0) {
-                menus.addAll(_menuRecommended);
-              } else if (data.categoryFoodIndex == 1) {
-                menus.addAll(_menuPopular);
-              } else if (data.categoryFoodIndex == 2) {
-                menus.addAll(_menuSushi);
-              } else if (data.categoryFoodIndex == 3) {
-                menus.addAll(_menuRamen);
-              } else if (data.categoryFoodIndex == 4) {
-                menus.addAll(_menuDonburi);
-              } else if (data.categoryFoodIndex == 5) {
-                menus.addAll(_menuTempura);
-              } else if (data.categoryFoodIndex == 6) {
-                menus.addAll(_menuDrink);
-              }
-
+            Consumer<MenuNotifier>(builder: (context, data, _) {
               return SlideTransition(
                 position: Tween(
-                  begin: const Offset(1, 0),
+                  begin: const Offset(.2, .05),
                   end: const Offset(0, 0),
                 ).animate(controller),
                 child: ListView.separated(
@@ -197,9 +189,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   separatorBuilder: (context, index) => const SizedBox(
                     height: 16.0,
                   ),
-                  itemCount: menus.length,
+                  itemCount: data.menus.length,
                   itemBuilder: (context, index) {
-                    var menu = menus[index];
+                    var menu = data.menus[index];
 
                     return ItemMenuListViewWidget(menu: menu);
                   },

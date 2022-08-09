@@ -48,19 +48,19 @@ class _ItemMenuListViewWidgetState extends State<ItemMenuListViewWidget> {
                   widget.menu.name,
                   style: Theme.of(context).textTheme.subtitle1!.copyWith(
                         color: colorBlack,
-                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                 ),
                 if (widget.menu.status == 0)
                   const SizedBox(
-                    height: 8.0,
+                    height: 4.0,
                   ),
                 if (widget.menu.status == 0)
                   Text(
                     "Not in sale",
                     style: Theme.of(context).textTheme.subtitle2!.copyWith(
                           color: colorRed,
+                          fontSize: 12,
                           fontWeight: FontWeight.bold,
                         ),
                   ),
