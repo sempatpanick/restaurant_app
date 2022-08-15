@@ -72,15 +72,17 @@ class DetailMenuPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: size.width * 0.15),
-                      child: Text(
-                        "Soba Soup With Shrimp and Greens",
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline6!.copyWith(
-                              color: colorBlack,
-                              fontWeight: FontWeight.bold,
-                            ),
+                    Center(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: size.width * 0.15),
+                        child: Text(
+                          "Soba Soup With Shrimp and Greens",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.headline6!.copyWith(
+                                color: colorBlack,
+                                fontWeight: FontWeight.bold,
+                              ),
+                        ),
                       ),
                     ),
                     const SizedBox(
