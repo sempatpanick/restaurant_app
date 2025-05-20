@@ -13,6 +13,8 @@ class TextWithIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -22,7 +24,7 @@ class TextWithIcon extends StatelessWidget {
         ),
         Text(
           text,
-          style: Theme.of(context).textTheme.subtitle1!.copyWith(color: colorBlack),
+          style: theme.textTheme.labelLarge!.copyWith(color: colorBlack),
         ),
       ],
     );

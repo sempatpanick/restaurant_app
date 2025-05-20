@@ -8,7 +8,8 @@ import '../pages/detail_menu_page.dart';
 
 class ItemMenuListViewWidget extends StatefulWidget {
   final Menu menu;
-  const ItemMenuListViewWidget({Key? key, required this.menu}) : super(key: key);
+  const ItemMenuListViewWidget({Key? key, required this.menu})
+      : super(key: key);
 
   @override
   State<ItemMenuListViewWidget> createState() => _ItemMenuListViewWidgetState();
@@ -17,6 +18,8 @@ class ItemMenuListViewWidget extends StatefulWidget {
 class _ItemMenuListViewWidgetState extends State<ItemMenuListViewWidget> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return GestureDetector(
       onTap: () => Navigator.pushNamed(context, DetailMenuPage.routeName),
       child: Container(
@@ -35,7 +38,8 @@ class _ItemMenuListViewWidgetState extends State<ItemMenuListViewWidget> {
                 child: CachedNetworkImage(
                   imageUrl: "https://dummyimage.com/400x400/FFC532/fff.jpg",
                   fit: BoxFit.cover,
-                  progressIndicatorBuilder: (context, url, downloadProgress) => Center(
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      Center(
                     child: SizedBox(
                       width: 40,
                       height: 40,
@@ -61,10 +65,10 @@ class _ItemMenuListViewWidgetState extends State<ItemMenuListViewWidget> {
                   ),
                   Text(
                     widget.menu.name,
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                          color: colorBlack,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    style: theme.textTheme.labelLarge!.copyWith(
+                      color: colorBlack,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   if (widget.menu.status == 0)
                     const SizedBox(
@@ -73,22 +77,22 @@ class _ItemMenuListViewWidgetState extends State<ItemMenuListViewWidget> {
                   if (widget.menu.status == 0)
                     Text(
                       "Not in sale",
-                      style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                            color: colorRed,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      style: theme.textTheme.labelMedium!.copyWith(
+                        color: colorRed,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   const SizedBox(
                     height: 16.0,
                   ),
                   Text(
                     numberPattern(widget.menu.price),
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                          color: colorBlack,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    style: theme.textTheme.labelLarge!.copyWith(
+                      color: colorBlack,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),

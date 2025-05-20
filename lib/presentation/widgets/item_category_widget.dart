@@ -16,19 +16,21 @@ class ItemCategoryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14.0),
-        decoration:
-            BoxDecoration(color: colorBackground, borderRadius: BorderRadius.circular(25.0)),
+        decoration: BoxDecoration(
+            color: colorBackground, borderRadius: BorderRadius.circular(25.0)),
         child: Center(
           child: Text(
             name,
-            style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                  color: colorText,
-                  fontWeight: FontWeight.w600,
-                ),
+            style: theme.textTheme.labelLarge!.copyWith(
+              color: colorText,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
       ),

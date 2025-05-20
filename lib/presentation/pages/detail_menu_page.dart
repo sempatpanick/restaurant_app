@@ -12,7 +12,8 @@ class DetailMenuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
 
     return Scaffold(
       backgroundColor: colorWhite,
@@ -68,20 +69,22 @@ class DetailMenuPage extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 26.0),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 26.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Center(
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: size.width * 0.15),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: size.width * 0.15),
                         child: Text(
                           "Soba Soup With Shrimp and Greens",
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.headline6!.copyWith(
-                                color: colorBlack,
-                                fontWeight: FontWeight.bold,
-                              ),
+                          style: theme.textTheme.titleMedium!.copyWith(
+                            color: colorBlack,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
@@ -89,10 +92,11 @@ class DetailMenuPage extends StatelessWidget {
                       height: 16,
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: size.width * 0.08),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: size.width * 0.08),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
+                        children: [
                           TextWithIcon(
                             icon: Icon(
                               Icons.access_time,
@@ -130,13 +134,13 @@ class DetailMenuPage extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
                               child: Text(
                                 "30.000",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline6!
-                                    .copyWith(color: colorBlack, fontWeight: FontWeight.bold),
+                                style: theme.textTheme.titleMedium!.copyWith(
+                                    color: colorBlack,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                             Container(
@@ -152,14 +156,15 @@ class DetailMenuPage extends StatelessWidget {
                                     style: TextButton.styleFrom(
                                       padding: EdgeInsets.zero,
                                       minimumSize: const Size(50, 40),
-                                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                      tapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
                                     ),
                                     child: Text(
                                       "-",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .subtitle1!
-                                          .copyWith(color: colorBlack, fontWeight: FontWeight.bold),
+                                      style: theme.textTheme.labelLarge!
+                                          .copyWith(
+                                              color: colorBlack,
+                                              fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                   Container(
@@ -172,8 +177,10 @@ class DetailMenuPage extends StatelessWidget {
                                     child: Center(
                                       child: Text(
                                         "1",
-                                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                                            color: colorBlack, fontWeight: FontWeight.bold),
+                                        style: theme.textTheme.labelLarge!
+                                            .copyWith(
+                                                color: colorBlack,
+                                                fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                   ),
@@ -182,14 +189,15 @@ class DetailMenuPage extends StatelessWidget {
                                     style: TextButton.styleFrom(
                                       padding: EdgeInsets.zero,
                                       minimumSize: const Size(50, 40),
-                                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                      tapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
                                     ),
                                     child: Text(
                                       "+",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .subtitle1!
-                                          .copyWith(color: colorBlack, fontWeight: FontWeight.bold),
+                                      style: theme.textTheme.labelLarge!
+                                          .copyWith(
+                                              color: colorBlack,
+                                              fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                 ],
@@ -204,10 +212,10 @@ class DetailMenuPage extends StatelessWidget {
                     ),
                     Text(
                       "About",
-                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                            color: colorBlack,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      style: theme.textTheme.labelLarge!.copyWith(
+                        color: colorBlack,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     const SizedBox(
                       height: 8.0,
@@ -215,9 +223,9 @@ class DetailMenuPage extends StatelessWidget {
                     Text(
                       loremIpsum,
                       textAlign: TextAlign.justify,
-                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                            color: colorGreyDark,
-                          ),
+                      style: theme.textTheme.labelLarge!.copyWith(
+                        color: colorGreyDark,
+                      ),
                     ),
                   ],
                 ),

@@ -15,17 +15,20 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   late AnimationController animateListController;
   late Animation<double> animation;
-  final bannerController = PageController(viewportFraction: 0.8, keepPage: true);
+  final bannerController =
+      PageController(viewportFraction: 0.8, keepPage: true);
 
   @override
   void initState() {
-    animateListController =
-        AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
+    animateListController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 200));
 
-    animation = Tween<double>(begin: 0.0, end: 1.0).animate(animateListController);
+    animation =
+        Tween<double>(begin: 0.0, end: 1.0).animate(animateListController);
     super.initState();
   }
 
@@ -48,16 +51,18 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       backgroundColor: colorGrey,
       appBar: AppBar(
         backgroundColor: colorWhite,
         title: Text(
           "Fujiyaki",
-          style: Theme.of(context).textTheme.headline5!.copyWith(
-                color: primaryColor,
-                fontWeight: FontWeight.bold,
-              ),
+          style: theme.textTheme.titleLarge!.copyWith(
+            color: primaryColor,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         actions: [
           InkWell(
@@ -66,7 +71,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             child: Container(
               width: 50,
               padding: const EdgeInsets.all(4.0),
-              margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+              margin:
+                  const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
               decoration: BoxDecoration(
                 color: colorWhite,
                 borderRadius: BorderRadius.circular(100),
@@ -97,7 +103,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                     height: 200,
                     child: PageView.builder(
                       controller: bannerController,
-                      onPageChanged: (index) => data.setBannerActiveIndex(index),
+                      onPageChanged: (index) =>
+                          data.setBannerActiveIndex(index),
                       itemCount: 6,
                       itemBuilder: (_, index) {
                         return Padding(
@@ -106,9 +113,11 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                             borderRadius: BorderRadius.circular(10),
                             clipBehavior: Clip.hardEdge,
                             child: CachedNetworkImage(
-                              imageUrl: "https://dummyimage.com/500x250/FFC532/fff.jpg",
+                              imageUrl:
+                                  "https://dummyimage.com/500x250/FFC532/fff.jpg",
                               fit: BoxFit.cover,
-                              progressIndicatorBuilder: (context, url, downloadProgress) => Center(
+                              progressIndicatorBuilder:
+                                  (context, url, downloadProgress) => Center(
                                 child: SizedBox(
                                   width: 60,
                                   height: 60,
@@ -118,7 +127,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                   ),
                                 ),
                               ),
-                              errorWidget: (context, url, error) => const Icon(Icons.error),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
                             ),
                           ),
                         );
@@ -166,8 +176,10 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   ),
                   itemCount: data.category.length,
                   itemBuilder: (context, index) {
-                    Color colorBackground = indexCategory == index ? primaryColor : colorWhite;
-                    Color colorText = indexCategory == index ? colorWhite : colorBlack;
+                    Color colorBackground =
+                        indexCategory == index ? primaryColor : colorWhite;
+                    Color colorText =
+                        indexCategory == index ? colorWhite : colorBlack;
 
                     return ItemCategoryWidget(
                       name: data.category[index],
@@ -175,9 +187,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                       colorText: colorText,
                       onTap: () async {
                         if (data.setCategoryFoodIndex(index)) {
-                          animateListController
-                              .reverse()
-                              .whenComplete(() => animateListController.forward());
+                          animateListController.reverse().whenComplete(
+                              () => animateListController.forward());
                         }
                       },
                     );
@@ -195,7 +206,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.only(left: 28.0, right: 28.0, bottom: 16.0),
+                  padding: const EdgeInsets.only(
+                      left: 28.0, right: 28.0, bottom: 16.0),
                   separatorBuilder: (context, index) => const SizedBox(
                     height: 16.0,
                   ),

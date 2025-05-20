@@ -26,10 +26,12 @@ class MainPageTablet extends StatelessWidget {
               useIndicator: true,
               indicatorColor: primaryColor,
               elevation: 1,
-              labelType:
-                  size.width >= 900 ? NavigationRailLabelType.none : NavigationRailLabelType.all,
-              onDestinationSelected: (index) => Provider.of<UtilsNotifier>(context, listen: false)
-                  .setBottomNavigationIndex(index),
+              labelType: size.width >= 900
+                  ? NavigationRailLabelType.none
+                  : NavigationRailLabelType.all,
+              onDestinationSelected: (index) =>
+                  Provider.of<UtilsNotifier>(context, listen: false)
+                      .setBottomNavigationIndex(index),
               selectedIconTheme: const IconThemeData(color: colorWhite),
               leading: const SizedBox(
                 height: 24,
@@ -40,11 +42,11 @@ class MainPageTablet extends StatelessWidget {
                   label: Text(
                     menu.name,
                     style: size.width >= 900
-                        ? Theme.of(context).textTheme.subtitle1!.copyWith(
+                        ? Theme.of(context).textTheme.labelLarge!.copyWith(
                               color: colorBlack,
                               fontWeight: FontWeight.w600,
                             )
-                        : Theme.of(context).textTheme.subtitle2!.copyWith(
+                        : Theme.of(context).textTheme.labelMedium!.copyWith(
                               color: colorBlack,
                               fontWeight: FontWeight.w600,
                             ),

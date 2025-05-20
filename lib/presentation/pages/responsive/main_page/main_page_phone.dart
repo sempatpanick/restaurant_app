@@ -32,7 +32,7 @@ class MainPagePhone extends StatelessWidget {
                 ),
                 Text(
                   navigationMenu[index].name,
-                  style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
                         color: colorBottomNav,
                         fontWeight: FontWeight.w400,
                       ),
@@ -45,8 +45,8 @@ class MainPagePhone extends StatelessWidget {
           notchSmoothness: NotchSmoothness.defaultEdge,
           leftCornerRadius: 20,
           rightCornerRadius: 20,
-          onTap: (index) =>
-              Provider.of<UtilsNotifier>(context, listen: false).setBottomNavigationIndex(index),
+          onTap: (index) => Provider.of<UtilsNotifier>(context, listen: false)
+              .setBottomNavigationIndex(index),
         ),
         body: navigationMenu[indexBottomNav].page,
       );
